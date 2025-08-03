@@ -1,11 +1,8 @@
 import './App.css';
+import Game from './pages/Game';
 
 function App() {
-  return (
-    <>
-      <p>Starter project</p>
-    </>
-  );
+  return <Game />;
 }
 
 export default App;
