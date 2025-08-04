@@ -1,30 +1,12 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import confetti from 'canvas-confetti';
+import { motion } from 'motion/react';
 import { useRef, useState } from 'react';
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
-
-import { fetchChoices, fetchRandomChoice, playGame } from '../api/gameApi';
-import { ICONS, type ChoiceName } from '../constants/icons';
 import styles from './Game.module.css';
 
-export interface Choice {
-  id: number;
-  name: keyof typeof ICONS;
-}
-
-export interface GameResult {
-  id: string;
-  user: string;
-  computer: string;
-  outcome: OutcomeType;
-}
-
-export type OutcomeType = 'win' | 'lose' | 'tie';
-
-export interface Score {
-  win: number;
-  lose: number;
-  tie: number;
-}
+import { ICONS, type ChoiceName } from '../constants/icons';
+import { useChoicesQuery, usePlayGameMutation, useRandomChoiceQuery } from '../queries/gameQueries';
+import type { GameResult, Score } from '../types/gameTypes';
 
 export default function Game() {
   const [result, setResult] = useState<GameResult | null>(null);
@@ -38,44 +20,17 @@ export default function Game() {
 
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
 
-  const {
-    data: choices = [],
-    isLoading,
-    isError,
-  } = useQuery<Choice[]>({
-    queryKey: ['choices'],
-    queryFn: fetchChoices,
-  });
+  const { data: choices = [], isLoading, isError } = useChoicesQuery();
 
-  const { refetch: refetchRandomChoice, isFetching: isFetchingRandom } = useQuery({
-    queryKey: ['randomChoice'],
-    queryFn: fetchRandomChoice,
-    enabled: false,
-  });
+  const { refetch: refetchRandomChoice, isFetching: isFetchingRandom } = useRandomChoiceQuery();
 
-  const mutation = useMutation({
-    mutationFn: playGame,
-    onSuccess: (res) => {
-      const userChoice = choices.find((c) => c.id === res.player);
-      const computerChoice = choices.find((c) => c.id === res.computer);
-      const outcome: OutcomeType = res.results;
-
-      const roundResult: GameResult = {
-        id: res.id,
-        user: userChoice?.name || '',
-        computer: computerChoice?.name || '',
-        outcome,
-      };
-
-      setResult(roundResult);
-      setHistory((prev) => [roundResult, ...prev.slice(0, 9)]);
-      setScore((prev) => ({
-        ...prev,
-        [outcome]: prev[outcome] + 1,
-      }));
-
-      playSound(outcome);
-    },
+  const mutation = usePlayGameMutation({
+    choices,
+    setResult,
+    setHistory,
+    setScore,
+    playSound,
+    triggerConfetti,
   });
 
   const handlePlay = (id: number) => {
@@ -106,7 +61,11 @@ export default function Game() {
     }
   };
 
-  const playSound = (type: string) => {
+  function triggerConfetti() {
+    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+  }
+
+  function playSound(type: string) {
     if (!soundOn) return;
 
     if (currentAudioRef.current) {
@@ -117,14 +76,20 @@ export default function Game() {
     const audio = new Audio(`/sounds/${type}.mp3`);
     audio.volume = volume;
     audio.play().catch(console.warn);
+
     currentAudioRef.current = audio;
-  };
+  }
 
   if (isLoading) return <p>Loading choices...</p>;
   if (isError) return <p>Error loading choices</p>;
 
   return (
-    <div className={styles.container}>
+    <motion.div
+      className={styles.container}
+      initial={{ opacity: 0, transform: 'scale(0.97)' }}
+      animate={{ opacity: 1, transform: 'scale(1)' }}
+      transition={{ duration: 0.5 }}
+    >
       <div className={styles.topColumn}>
         <h1 className={styles.gameTitle}>Rock Paper Scissors Lizard Spock</h1>
         <div className={styles.soundWrapper}>
@@ -161,11 +126,13 @@ export default function Game() {
           <p className={styles.selectMoveText}>Select your move:</p>
           <div className={styles.buttons}>
             {choices.map((choice) => (
-              <button
+              <motion.button
                 key={choice.id}
                 className={`${styles.choiceButton} ${shake ? styles.shake : ''}`}
                 onClick={() => handlePlay(choice.id)}
                 disabled={mutation.isPending}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95, rotate: [0, -5, 5, -3, 0] }}
               >
                 <img
                   src={ICONS[choice.name as ChoiceName]}
@@ -173,25 +140,38 @@ export default function Game() {
                   className={styles.choiceIcon}
                 />
                 <span className={styles.choiceLabel}>{choice.name}</span>
-              </button>
+              </motion.button>
             ))}
-            <button
+            <motion.button
               className={`${styles.choiceButton} ${styles.randomChoiceButton}`}
               onClick={handleRandomChoicePlay}
               disabled={isFetchingRandom || mutation.isPending}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95, rotate: [0, 5, -5, 3, 0] }}
             >
               🎲
               <span className={styles.choiceLabel}>
                 {isFetchingRandom ? 'Picking...' : 'Random'}
               </span>
-            </button>
+            </motion.button>
           </div>
 
-          <div className={styles.resultBox}>
+          <motion.div
+            className={styles.resultBox}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
             <h2>Result</h2>
 
             {result && (
-              <div className={styles.vsBox}>
+              <motion.div
+                className={styles.vsBox}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: result ? 1 : 0, y: result ? 0 : 15 }}
+                transition={{ duration: 0.4 }}
+                style={{ pointerEvents: result ? 'auto' : 'none' }}
+              >
                 <div className={styles.playerSide}>
                   <p>You Chose</p>
                   <img
@@ -213,13 +193,23 @@ export default function Game() {
                   />
                   <p className={styles.resultLabel}>{result.computer}</p>
                 </div>
-              </div>
+              </motion.div>
             )}
 
             <div className={styles.liveScore}>
               <p>
-                🏆 Wins: <span>{score.win}</span> | 💀 Losses: <span>{score.lose}</span> | 🤝 Ties:{' '}
-                <span>{score.tie}</span>
+                🏆 Wins:{' '}
+                <motion.span key={`win-${score.win}`} animate={{ scale: [1.3, 1] }}>
+                  {score.win}
+                </motion.span>{' '}
+                | 💀 Losses:{' '}
+                <motion.span key={`lose-${score.lose}`} animate={{ scale: [1.3, 1] }}>
+                  {score.lose}
+                </motion.span>{' '}
+                | 🤝 Ties:{' '}
+                <motion.span key={`tie-${score.tie}`} animate={{ scale: [1.3, 1] }}>
+                  {score.tie}
+                </motion.span>
               </p>
               <button
                 className={styles.resetButton}
@@ -231,29 +221,44 @@ export default function Game() {
             </div>
 
             {result && (
-              <p className={`${styles.outcome} ${styles[result.outcome]}`}>
+              <motion.p
+                className={`${styles.outcome} ${styles[result.outcome]}`}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: result ? 1 : 0, scale: result ? 1.1 : 0.9 }}
+                transition={{ duration: 0.3, type: 'spring' }}
+              >
                 {result.outcome.toUpperCase()}
-              </p>
+              </motion.p>
             )}
-          </div>
+          </motion.div>
         </div>
 
-        <div className={styles.scoreboard}>
+        <motion.div
+          className={styles.scoreboard}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
           <h3>Scoreboard (last 10 rounds)</h3>
           {history.length > 0 ? (
             <ul>
-              {history.map((h) => (
-                <li key={h.id}>
+              {history.map((h, idx) => (
+                <motion.li
+                  key={h.id}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.03 }}
+                >
                   You: <strong>{h.user}</strong> vs Computer: <strong>{h.computer}</strong> →{' '}
                   <strong>{h.outcome.toUpperCase()}</strong>
-                </li>
+                </motion.li>
               ))}
             </ul>
           ) : (
             <p>No rounds played yet.</p>
           )}
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
