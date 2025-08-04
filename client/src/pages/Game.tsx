@@ -6,6 +6,7 @@ import styles from './Game.module.css';
 
 import { createPortal } from 'react-dom';
 import { FaQuestionCircle } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 import rpslsDiagram from '../assets/gif/rpssl.gif';
 import { ICONS, type ChoiceName } from '../constants/icons';
 import { useChoicesQuery, usePlayGameMutation, useRandomChoiceQuery } from '../queries/gameQueries';
@@ -57,11 +58,10 @@ export default function Game() {
   const handleRandomChoicePlay = async () => {
     try {
       const { data } = await refetchRandomChoice();
-      if (data?.id) {
-        handlePlay(data.id);
-      }
+      if (data?.id) handlePlay(data.id);
+      else toast.error('Service returned an invalid choice');
     } catch (err) {
-      console.error('Failed to play random choice', err);
+      toast.error(err instanceof Error ? err.message : 'Failed to fetch random choice');
     }
   };
 

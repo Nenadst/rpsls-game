@@ -1,4 +1,3 @@
-// src/queries/gameQueries.ts
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { fetchChoices, fetchRandomChoice, playGame } from '../api/gameApi';
 import type { Choice, GameResult, OutcomeType } from '../types/gameTypes';

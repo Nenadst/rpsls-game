@@ -1,8 +1,21 @@
 import './App.css';
 import Game from './pages/Game';
 
-function App() {
-  return <Game />;
-}
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-export default App;
+export default function App() {
+  return (
+    <>
+      <Game />
+
+      <ToastContainer
+        position="top-right"
+        autoClose={4000}
+        hideProgressBar
+        newestOnTop
+        theme="dark"
+      />
+    </>
+  );
+}

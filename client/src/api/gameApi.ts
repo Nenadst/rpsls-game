@@ -1,8 +1,4 @@
-import axios from 'axios';
-
-const API = axios.create({
-  baseURL: 'http://localhost:5000/api',
-});
+import { API } from './API';
 
 export const fetchChoices = async () => {
   const res = await API.get('/choices');
@@ -16,5 +12,5 @@ export const playGame = async (playerId: number) => {
 
 export const fetchRandomChoice = async () => {
   const res = await API.get('/choice');
-  return res.data; // { id, name }
+  return res.data;
 };
