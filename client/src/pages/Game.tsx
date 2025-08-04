@@ -8,6 +8,7 @@ import { createPortal } from 'react-dom';
 import { FaQuestionCircle } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import rpslsDiagram from '../assets/gif/rpssl.gif';
+import diceImg from '../assets/images/two-dices-white-background.png';
 import { ICONS, type ChoiceName } from '../constants/icons';
 import { useChoicesQuery, usePlayGameMutation, useRandomChoiceQuery } from '../queries/gameQueries';
 import type { GameResult, Score } from '../types/gameTypes';
@@ -160,7 +161,7 @@ export default function Game() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95, rotate: [0, 5, -5, 3, 0] }}
             >
-              🎲
+              <img src={diceImg} alt={'Dice image'} className={styles.choiceIconDice} />
               <span className={styles.choiceLabel}>
                 {isFetchingRandom ? 'Picking...' : 'Random'}
               </span>
@@ -173,8 +174,6 @@ export default function Game() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
           >
-            <h2>Result</h2>
-
             {result && (
               <motion.div
                 className={styles.vsBox}

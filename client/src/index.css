@@ -26,7 +26,14 @@ a {
   text-decoration: none;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
+  background: linear-gradient(to bottom right, #f0f2f5, #205087);
   margin: 0;
   display: flex;
   place-items: center;
