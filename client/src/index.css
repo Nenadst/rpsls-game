@@ -11,6 +11,15 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --primary: #2d6cdf;
+  --accent: #00c49a;
+  --accent-hover: #00967a;
+  --neutral: #7d8591;
+  --neutral-hover: #6b7380;
+  --confirm: #ff6b6b;
+  --confirm-hover: #e25959;
+  --text: #222;
 }
 
 a {

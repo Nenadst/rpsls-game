@@ -4,6 +4,9 @@ import { useRef, useState } from 'react';
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
 import styles from './Game.module.css';
 
+import { createPortal } from 'react-dom';
+import { FaQuestionCircle } from 'react-icons/fa';
+import rpslsDiagram from '../assets/gif/rpssl.gif';
 import { ICONS, type ChoiceName } from '../constants/icons';
 import { useChoicesQuery, usePlayGameMutation, useRandomChoiceQuery } from '../queries/gameQueries';
 import type { GameResult, Score } from '../types/gameTypes';
@@ -17,6 +20,7 @@ export default function Game() {
   const [soundOn, setSoundOn] = useState(false);
   const [volume, setVolume] = useState(0.4);
   const [showSlider, setShowSlider] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(false);
 
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -91,6 +95,13 @@ export default function Game() {
       transition={{ duration: 0.5 }}
     >
       <div className={styles.topColumn}>
+        <button
+          className={styles.instructionsButton}
+          title="Click to see instructions"
+          onClick={() => setShowInstructions(true)}
+        >
+          <FaQuestionCircle size={24} />
+        </button>
         <h1 className={styles.gameTitle}>Rock Paper Scissors Lizard Spock</h1>
         <div className={styles.soundWrapper}>
           <div
@@ -259,6 +270,46 @@ export default function Game() {
           )}
         </motion.div>
       </div>
+
+      {showInstructions &&
+        createPortal(
+          <motion.div
+            className={styles.modalOverlay}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowInstructions(false)}
+          >
+            <motion.div
+              className={styles.modal}
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.25 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h2>Game instructions</h2>
+
+              <img
+                src={rpslsDiagram}
+                alt="Rock-Paper-Scissors-Lizard-Spock diagram"
+                className={styles.diagram}
+              />
+
+              <ul className={styles.rules}>
+                <li>Rock crushes Scissors and Lizard.</li>
+                <li>Paper covers Rock and disproves Spock.</li>
+                <li>Scissors cuts Paper and decapitates Lizard.</li>
+                <li>Lizard eats Paper and poisons Spock.</li>
+                <li>Spock smashes Scissors and vaporises Rock.</li>
+              </ul>
+
+              <button className={styles.closeModal} onClick={() => setShowInstructions(false)}>
+                Got it
+              </button>
+            </motion.div>
+          </motion.div>,
+          document.body
+        )}
     </motion.div>
   );
 }
