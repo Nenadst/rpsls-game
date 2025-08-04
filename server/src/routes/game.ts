@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 import { BEATS, ChoiceId, CHOICES } from '../data/choicesData.ts';
 
 function determineWinner(playerId: ChoiceId, computerId: ChoiceId): 'win' | 'lose' | 'tie' {
@@ -33,6 +34,7 @@ router.post('/play', async (req: Request<{}, {}, PlayRequestBody>, res: Response
     const result = determineWinner(playerChoice.name, computerChoice.name);
 
     res.json({
+      id: uuidv4(),
       results: result,
       player: playerChoice.id,
       computer: computerChoice.id,
