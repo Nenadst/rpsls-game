@@ -1,0 +1,115 @@
+.box {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.vsBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon {
+  width: 4rem;
+  height: 4rem;
+}
+
+.label {
+  font-size: 1rem;
+  color: var(--color-neutral-600);
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.vsText {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-neutral-300);
+}
+
+.scoreRow {
+  margin-top: 1.25rem;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-neutral-600);
+}
+
+.reset {
+  margin-top: 2.5rem;
+  padding: 0.625rem 1.125rem;
+  background-color: var(--color-danger-500);
+  color: var(--color-white);
+  border: none;
+  border-radius: 0.625rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.reset:hover {
+  background-color: var(--color-danger-600);
+}
+
+.reset:disabled {
+  background-color: var(--color-danger-200);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.outcome {
+  margin-top: 1rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.outcome.win {
+  color: var(--color-success-500);
+}
+.outcome.lose {
+  color: var(--color-danger-500);
+}
+.outcome.tie {
+  color: var(--color-neutral-600);
+}
+
+.text {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: var(--color-neutral-500);
+  text-align: center;
+  margin-top: 0;
+}
+
+@media (max-width: 1200px) {
+  .box {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .icon {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .vsBox {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .vsBox {
+    display: none;
+  }
+}

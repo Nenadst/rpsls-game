@@ -1,11 +1,11 @@
 .container {
-  max-width: 1100px;
+  max-width: 68.75rem;
   width: 100%;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-white);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-md);
 }
 
 .topColumn {
@@ -13,16 +13,16 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
-  gap: 16px;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
 .instructionsButton {
-  color: var(--neutral);
+  color: var(--color-neutral-400);
   background: none;
   border: none;
+  padding: 0;
   cursor: pointer;
-  margin-right: 12px;
   display: flex;
   align-items: center;
   transition: transform 0.15s;
@@ -30,352 +30,46 @@
 
 .instructionsButton:hover,
 .instructionsButton:focus-visible {
-  color: var(--neutral-hover);
+  color: var(--color-neutral-500);
   transform: scale(1.15);
 }
 
 .instructionsButton svg {
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .gameTitle {
-  font-size: 32px;
+  font-size: 2rem;
   font-weight: 700;
   text-align: center;
-  margin: 0 auto;
-  color: #1a1a1a;
+  margin: 0;
+  line-height: 1;
+  color: var(--color-neutral-800);
 }
 
 .mainWrapper {
   display: flex;
-  gap: 24px;
-  align-items: flex-start;
+  gap: 1.5rem;
   flex-direction: row;
 }
 
 .mainContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
   flex: 1;
   min-width: 0;
 }
 
-.soundWrapper {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  position: relative;
-}
-
-.soundOn,
-.soundOff {
-  display: flex;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  color: #3be358;
-  outline: none;
-}
-
-.soundOff {
-  color: #999;
-}
-
-.soundIconWithSlider {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.volumeSlider {
-  position: absolute;
-  top: 25px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #fff;
-  padding: 6px 8px;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  z-index: 20;
-}
-
-.volumeSlider input[type='range'] {
-  width: 100px;
-}
-
 .selectMoveText {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--color-neutral-700);
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 
-p {
-  font-size: 17px;
-  color: #475569;
-  text-align: center;
-  margin-top: 0;
-}
-
-.buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 14px;
-  margin-top: 24px;
-}
-
-.choiceButton {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(to bottom, #6366f1, #3b82f6);
-  border: none;
-  border-radius: 50%;
-  width: 90px;
-  height: 90px;
-  padding: 10px;
-  color: white;
-  font-weight: 600;
-  font-size: 14px;
-  cursor: pointer;
-  transition: box-shadow 0.2s ease;
-}
-
-.choiceButton:hover {
-  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
-}
-
-.choiceButton:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.randomChoiceButton {
-  background-color: #6366f1;
-  color: white;
-  font-weight: 600;
-}
-
-.randomChoiceButton:hover {
-  background-color: #4f46e5;
-}
-
-.dice {
-  height: 36px;
-  width: 36px;
-}
-
-.choiceIcon {
-  width: 36px;
-  height: 36px;
-  margin-bottom: 6px;
-  filter: brightness(0) invert(1);
-}
-
-.choiceIconDice {
-  width: 60px;
-  height: 36px;
-  margin-bottom: 6px;
-}
-
-.choiceLabel {
-  margin-top: 2px;
-  text-transform: uppercase;
-  font-size: 12px;
-}
-
-.resultBox {
-  margin-top: 40px;
-  text-align: center;
-}
-
-.vsBox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 16px;
-  gap: 32px;
-  flex-wrap: wrap;
-}
-
-.playerSide,
-.computerSide {
-  text-align: center;
-}
-
-.resultIcon {
-  width: 64px;
-  height: 64px;
-  margin: 8px 0;
-}
-
-.resultLabel {
-  font-size: 16px;
-  color: #374151;
-  text-transform: capitalize;
-  font-weight: 500;
-}
-
-.vsText {
-  font-size: 24px;
-  font-weight: bold;
-  color: #9ca3af;
-}
-
-.outcome {
-  font-size: 30px;
-  font-weight: bold;
-  margin-top: 14px;
-}
-
-.win {
-  color: #10b981;
-}
-
-.lose {
-  color: #ef4444;
-}
-
-.tie {
-  color: #6b7280;
-}
-
-.scoreboard {
-  width: 400px;
-  min-height: 300px;
-  height: 100%;
-  flex-shrink: 0;
-  background: linear-gradient(to bottom right, #eef2ff, #e0e7ff);
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: inset 0 0 0 1px #d1d5db;
-}
-
-.scoreboard h3 {
-  font-size: 20px;
-  font-weight: 600;
-  color: #1e293b;
-  text-align: center;
-  margin-bottom: 12px;
-}
-
-.scoreboard ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  overflow-y: auto;
-}
-
-.scoreboard li {
-  font-size: 15px;
-  padding: 10px 14px;
-  margin-bottom: 8px;
-  background-color: #ffffff;
-  border-left: 4px solid #6366f1;
-  border-radius: 8px;
-  color: #334155;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
-}
-
-.scoreboard li:hover {
-  transform: scale(1.02);
-  background-color: #f8fafc;
-}
-
-.liveScore {
-  margin-top: 20px;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 500;
-  color: #374151;
-}
-
-.resetButton {
-  margin-top: 10px;
-  padding: 10px 18px;
-  background-color: #dc2626;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.resetButton:hover {
-  background-color: #b91c1c;
-}
-
-.resetButton:disabled {
-  background-color: #fca5a5;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* modal overlay */
-.modalOverlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal {
-  color: var(--text);
-  background: #fff;
-  color: #111;
-  padding: 24px 32px;
-  border-radius: 10px;
-  max-width: 520px;
-  width: 90%;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  z-index: 9999;
-}
-
-.modal h2 {
-  margin: 0 0 14px;
-  font-size: 1.4rem;
-  color: var(--primary);
-}
-
-.rules {
-  margin: 16px 0 24px;
-  padding-left: 0;
-  list-style: none;
-}
-
-.rules a {
-  text-decoration: none;
-}
-
-.closeModal {
-  background: var(--confirm);
-  color: #fff;
-  border: none;
-  padding: 10px 26px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    background 0.15s,
-    transform 0.15s;
-}
-
-.closeModal:hover,
-.closeModal:focus-visible {
-  background: var(--confirm-hover);
-  transform: translateY(-1px);
-}
-
-/* //////////////  ≤1024px  ////////////// */
 @media (max-width: 1024px) {
   .mainContent {
     width: 100%;
@@ -388,41 +82,23 @@ p {
   .mainWrapper {
     flex-direction: column;
   }
+}
 
-  .scoreboard {
-    width: 100%;
-    margin-top: 24px;
-    min-height: 180px;
-  }
-
-  .choiceButton {
-    width: 80px;
-    height: 80px;
-  }
-
-  .choiceLabel {
-    font-size: 10px;
-  }
-
-  .resultIcon {
-    width: 56px;
-    height: 56px;
+@media (max-width: 1200px) {
+  .mainContent {
+    gap: 0.5rem;
   }
 }
 
-/* //////////////  ≤768px  ////////////// */
 @media (max-width: 768px) {
   .topColumn {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 8px;
+    gap: 0.5rem;
   }
 
   .instructionsButton {
     order: 0;
-  }
-  .soundWrapper {
-    order: 1;
   }
 
   .gameTitle {
@@ -433,40 +109,11 @@ p {
     font-size: clamp(1.4rem, 4.5vw, 2rem);
   }
 
-  .selectMoveText,
-  .outcome {
+  .selectMoveText {
     font-size: clamp(1rem, 4vw, 1.25rem);
-  }
-
-  .buttons {
-    gap: 10px;
-    margin-top: 20px;
-  }
-
-  .choiceIcon {
-    width: 30px;
-    height: 30px;
-  }
-
-  .vsBox {
-    gap: 24px;
-  }
-
-  .volumeSlider {
-    top: 30px;
-  }
-
-  .modal {
-    padding: 20px;
-    max-width: 90%;
-  }
-
-  .diagram {
-    width: 100%;
   }
 }
 
-/* //////////////  ≤480px  ////////////// */
 @media (max-width: 480px) {
   .container {
     margin: 1rem 0.5rem;
@@ -480,26 +127,5 @@ p {
   .instructionsButton {
     align-self: flex-end;
     margin-right: 0;
-  }
-
-  .vsBox {
-    display: none;
-  }
-
-  .scoreboard {
-    padding: 12px;
-  }
-
-  .scoreboard li {
-    font-size: 14px;
-    padding: 8px 10px;
-  }
-
-  .diagram {
-    display: none;
-  }
-
-  .closeModal {
-    width: 100%;
   }
 }

@@ -1,0 +1,72 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: var(--color-white);
+  color: var(--color-neutral-900);
+  padding: 1.5rem 2rem;
+  border-radius: 0.625rem;
+  max-width: 32.5rem;
+  width: 90%;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+
+.modal h2 {
+  margin: 0 0 0.875rem;
+  font-size: 1.4rem;
+  color: var(--color-primary-500);
+}
+
+.diagram {
+  width: 100%;
+  max-width: 23.75rem;
+  margin: 0 auto 1.125rem;
+}
+
+.rules {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 1.5rem;
+  line-height: 1.4;
+  color: var(--color-neutral-600);
+}
+
+.close {
+  background: var(--color-danger-500);
+  color: var(--color-white);
+  border: none;
+  padding: 0.625rem 1.625rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    transform 0.15s;
+}
+
+.close:hover,
+.close:focus-visible {
+  background: var(--color-danger-600);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+  .modal {
+    padding: 20px;
+    max-width: 90%;
+  }
+  .diagram {
+    display: none;
+  }
+  .close {
+    width: 100%;
+  }
+}

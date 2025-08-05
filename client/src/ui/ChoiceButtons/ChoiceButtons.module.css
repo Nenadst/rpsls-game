@@ -1,0 +1,92 @@
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.875rem;
+}
+
+.choiceButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, var(--color-primary-500), var(--color-primary-400));
+  border: none;
+  border-radius: 50%;
+  width: 5.625rem;
+  height: 5.625rem;
+  padding: 0.625rem;
+  color: var(--color-white);
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+
+.choiceButton:hover {
+  box-shadow: 0 0.5rem 1.25rem var(--shadow-lg);
+}
+
+.choiceButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.choice img {
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-bottom: 0.375rem;
+  filter: brightness(0) invert(1);
+}
+
+.choice span {
+  margin-top: 0.125rem;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.randomChoiceButton {
+  background-color: var(--color-primary-500);
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+.randomChoiceButton:hover {
+  background-color: var(--color-primary-600);
+}
+
+.choiceIcon {
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-bottom: 0.375rem;
+  filter: brightness(0) invert(1);
+}
+
+.choiceIconDice {
+  width: 3.75rem;
+  height: 2.25rem;
+  margin-bottom: 0.375rem;
+}
+
+@media (max-width: 1024px) {
+  .choiceButton {
+    width: 80px;
+    height: 80px;
+  }
+
+  .choiceLabel {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .buttons {
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .choiceIcon {
+    width: 30px;
+    height: 30px;
+  }
+}
