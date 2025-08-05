@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
 import styles from './SoundControl.module.css';
 import type { SoundControlProps } from './SoundControl.types';
 
-export function SoundControl({ enabled, volume, onToggle, onVolume }: SoundControlProps) {
+export const SoundControl = memo(function SoundControl({
+  enabled,
+  volume,
+  onToggle,
+  onVolume,
+}: SoundControlProps) {
   const [hover, setHover] = useState(false);
 
   return (
@@ -36,4 +41,4 @@ export function SoundControl({ enabled, volume, onToggle, onVolume }: SoundContr
       )}
     </div>
   );
-}
+});

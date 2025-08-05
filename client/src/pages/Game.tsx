@@ -4,6 +4,7 @@ import { FaQuestionCircle } from 'react-icons/fa';
 import { useConfetti } from '../hooks/useConfetti';
 import { useGameLogic } from '../hooks/useGameLogic';
 import { useSound } from '../hooks/useSound';
+import { useVolumeControl } from '../hooks/useVolumeControl';
 import { ChoiceButtons } from '../ui/ChoiceButtons/ChoiceButtons';
 import { InstructionsModal } from '../ui/InstructionModal/InstructionsModal';
 import { ResultBox } from '../ui/ResultBox/ResultBox';
@@ -12,10 +13,9 @@ import { SoundControl } from '../ui/SoundControl/SoundControl';
 import styles from './Game.module.css';
 
 export default function Game() {
-  const [soundOn, setSoundOn] = useState(false);
-  const [volume, setVolume] = useState(0.4);
   const [showInstructions, setShowInstructions] = useState(false);
 
+  const { enabled: soundOn, volume, toggle, setFromSlider } = useVolumeControl(false, 0);
   const playSound = useSound(soundOn, volume);
   const triggerConfetti = useConfetti();
 
@@ -55,8 +55,8 @@ export default function Game() {
           <SoundControl
             enabled={soundOn}
             volume={volume}
-            onToggle={() => setSoundOn((v) => !v)}
-            onVolume={setVolume}
+            onToggle={toggle}
+            onVolume={setFromSlider}
           />
         </header>
 
