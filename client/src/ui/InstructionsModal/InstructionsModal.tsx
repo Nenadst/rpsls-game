@@ -1,10 +1,14 @@
 import { motion } from 'motion/react';
+import { memo } from 'react';
 import { createPortal } from 'react-dom';
 import rpslsDiagram from '../../assets/gif/rpssl.gif';
 import styles from './InstructionsModal.module.css';
 import type { InstructionModalProps } from './InstructionsModal.types';
 
-export function InstructionsModal({ open, onClose }: InstructionModalProps) {
+export const InstructionsModal = memo(function InstructionsModal({
+  open,
+  onClose,
+}: InstructionModalProps) {
   if (!open) return null;
 
   return createPortal(
@@ -45,4 +49,4 @@ export function InstructionsModal({ open, onClose }: InstructionModalProps) {
     </motion.div>,
     document.body
   );
-}
+});

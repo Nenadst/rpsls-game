@@ -1,6 +1,8 @@
 import { useCallback, useRef } from 'react';
+import { useSoundContext } from '../context/SoundContext';
 
-export function useSound(enabled: boolean, volume: number) {
+export function useSound() {
+  const { enabled, volume } = useSoundContext();
   const current = useRef<HTMLAudioElement | null>(null);
 
   const play = useCallback(

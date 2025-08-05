@@ -17,28 +17,6 @@
   flex-wrap: wrap;
 }
 
-.instructionsButton {
-  color: var(--color-neutral-400);
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  transition: transform 0.15s;
-}
-
-.instructionsButton:hover,
-.instructionsButton:focus-visible {
-  color: var(--color-neutral-500);
-  transform: scale(1.15);
-}
-
-.instructionsButton svg {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
 .gameTitle {
   font-size: 2rem;
   font-weight: 700;
@@ -97,10 +75,6 @@
     gap: 0.5rem;
   }
 
-  .instructionsButton {
-    order: 0;
-  }
-
   .gameTitle {
     order: 2;
     flex: 0 0 100%;
@@ -122,10 +96,5 @@
 
   .mainWrapper {
     gap: 0;
-  }
-
-  .instructionsButton {
-    align-self: flex-end;
-    margin-right: 0;
   }
 }

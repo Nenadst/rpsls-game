@@ -1,14 +1,10 @@
 import { memo, useState } from 'react';
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
+import { useSoundContext } from '../../context/SoundContext';
 import styles from './SoundControl.module.css';
-import type { SoundControlProps } from './SoundControl.types';
 
-export const SoundControl = memo(function SoundControl({
-  enabled,
-  volume,
-  onToggle,
-  onVolume,
-}: SoundControlProps) {
+export const SoundControl = memo(function SoundControl() {
+  const { enabled, volume, toggle, setVolume } = useSoundContext();
   const [hover, setHover] = useState(false);
 
   return (
@@ -20,7 +16,7 @@ export const SoundControl = memo(function SoundControl({
       <button
         aria-label={enabled ? 'Mute sound' : 'Enable sound'}
         className={enabled ? styles.on : styles.off}
-        onClick={onToggle}
+        onClick={toggle}
       >
         {enabled ? <HiVolumeUp size={24} /> : <HiVolumeOff size={24} />}
       </button>
@@ -29,12 +25,11 @@ export const SoundControl = memo(function SoundControl({
         <div className={styles.volumeSlider}>
           <input
             type="range"
-            aria-label="Volume"
             min={0}
             max={1}
             step={0.01}
             value={volume}
-            onChange={(e) => onVolume(Number(e.target.value))}
+            onChange={(e) => setVolume(Number(e.target.value))}
             className={styles.slider}
           />
         </div>

@@ -1,11 +1,12 @@
 import { motion } from 'motion/react';
+import { memo } from 'react';
 import diceImg from '../../assets/images/two-dices-white-background.png';
 import { ICONS, type ChoiceName } from '../../constants/icons';
 import { capitalizeFirst } from '../../utils/helpers';
 import type { ChoiceButtonsProps } from './ChoiceButton.types';
 import styles from './ChoiceButtons.module.css';
 
-export function ChoiceButtons({
+export const ChoiceButtons = memo(function ChoiceButtons({
   choices,
   disabled,
   play,
@@ -40,4 +41,4 @@ export function ChoiceButtons({
       </motion.button>
     </div>
   );
-}
+});

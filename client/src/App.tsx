@@ -1,4 +1,5 @@
 import './App.css';
+import { SoundProvider } from './context/SoundContext';
 import Game from './pages/Game';
 
 import { ToastContainer } from 'react-toastify';
@@ -7,7 +8,9 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function App() {
   return (
     <>
-      <Game />
+      <SoundProvider>
+        <Game />
+      </SoundProvider>
 
       <ToastContainer
         position="top-right"

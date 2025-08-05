@@ -1,8 +1,9 @@
 import { motion } from 'motion/react';
+import { memo } from 'react';
 import styles from './Scoreboard.module.css';
 import type { ScoreboardProps } from './Scoreboard.types';
 
-export function Scoreboard({ history }: ScoreboardProps) {
+export const Scoreboard = memo(function Scoreboard({ history }: ScoreboardProps) {
   return (
     <div className={styles.scoreboard}>
       {!history.length ? (
@@ -30,4 +31,4 @@ export function Scoreboard({ history }: ScoreboardProps) {
       )}
     </div>
   );
-}
+});

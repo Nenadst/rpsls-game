@@ -1,9 +1,15 @@
 import { motion } from 'motion/react';
+import { memo } from 'react';
 import { ICONS, type ChoiceName } from '../../constants/icons';
 import styles from './ResultBox.module.css';
 import type { ResultBoxProps } from './ResultBox.types';
 
-export function ResultBox({ result, score, history, onReset }: ResultBoxProps) {
+export const ResultBox = memo(function ResultBox({
+  result,
+  score,
+  history,
+  onReset,
+}: ResultBoxProps) {
   return (
     <motion.div
       className={styles.box}
@@ -75,4 +81,4 @@ export function ResultBox({ result, score, history, onReset }: ResultBoxProps) {
       )}
     </motion.div>
   );
-}
+});
