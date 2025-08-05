@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useChoicesQuery, usePlayGameMutation, useRandomChoiceQuery } from '../queries/gameQueries';
 import type { GameResult, Score } from '../types/gameTypes';
@@ -7,7 +7,7 @@ export function useGameLogic(playSound: (n: string) => void, triggerConfetti: ()
   const [result, setResult] = useState<GameResult | null>(null);
   const [history, setHistory] = useState<GameResult[]>([]);
   const [score, setScore] = useState<Score>({ win: 0, lose: 0, tie: 0 });
-  const [lastClick, setLastClick] = useState(0);
+  const lastClickRef = useRef(0);
 
   const { data: choices = [], isLoading, isError } = useChoicesQuery();
   const { refetch: refetchRandom, isFetching: isFetchingRandom } = useRandomChoiceQuery();
@@ -24,13 +24,12 @@ export function useGameLogic(playSound: (n: string) => void, triggerConfetti: ()
   const play = useCallback(
     (id: number) => {
       const now = Date.now();
-      if (now - lastClick < 500) {
-      }
-      setLastClick(now);
+      if (now - lastClickRef.current < 500) return;
+      lastClickRef.current = now;
       playSound('tap');
       mutation.mutate(id);
     },
-    [lastClick, mutation, playSound]
+    [mutation]
   );
 
   const playRandom = useCallback(async () => {
