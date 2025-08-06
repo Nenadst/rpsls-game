@@ -1,29 +1,42 @@
+.main {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('../../assets/images/game-background.png') bottom / cover no-repeat;
+}
+
 .container {
   max-width: 68.75rem;
   width: 100%;
-  margin: 2rem auto;
   padding: 2rem;
-  background-color: var(--color-white);
+  background-color: var(--color-danger-100);
   border-radius: 0.75rem;
   box-shadow: var(--shadow-md);
 }
 
-.topColumn {
+.header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  justify-content: space-between;
   gap: 1rem;
-  flex-wrap: wrap;
+  width: 100%;
+  margin-bottom: 1rem;
 }
 
 .gameTitle {
-  font-size: 2rem;
-  font-weight: 700;
+  flex: 1;
   text-align: center;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-neutral-500);
   margin: 0;
-  line-height: 1;
-  color: var(--color-neutral-800);
+}
+
+.rightArea {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .mainWrapper {
@@ -66,10 +79,14 @@
   .mainContent {
     gap: 0.5rem;
   }
+
+  .container {
+    margin: 1rem;
+  }
 }
 
 @media (max-width: 768px) {
-  .topColumn {
+  .header {
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.5rem;
@@ -90,7 +107,6 @@
 
 @media (max-width: 480px) {
   .container {
-    margin: 1rem 0.5rem;
     padding: 1rem;
   }
 
