@@ -61,6 +61,12 @@
   margin-bottom: 0;
 }
 
+@media (max-width: 1600px) {
+  .container {
+    padding: 0.5rem 2rem;
+  }
+}
+
 @media (max-width: 1024px) {
   .mainContent {
     width: 100%;
