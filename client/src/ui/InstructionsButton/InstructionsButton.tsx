@@ -1,6 +1,8 @@
 import { memo } from 'react';
 import { FaQuestionCircle } from 'react-icons/fa';
+
 import styles from './InstructionsButton.module.css';
+
 import type { InstructionsButtonProps } from './InstructionsButton.types';
 
 export const InstructionsButton = memo(function InstructionsButton({

@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+
 import './App.css';
 import { SoundProvider } from './context/SoundContext';
 import Game from './pages/GamePage/Game';

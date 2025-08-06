@@ -1,13 +1,14 @@
-import { createContext, useCallback, useContext, useRef, useState } from 'react';
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useCallback, useRef, useState } from 'react';
 
-type Ctx = {
+type SoundContextType = {
   enabled: boolean;
   volume: number;
   toggle: () => void;
   setVolume: (v: number) => void;
 };
 
-const SoundCtx = createContext<Ctx | null>(null);
+export const SoundContext = createContext<SoundContextType | null>(null);
 
 export function SoundProvider({ children }: { children: React.ReactNode }) {
   const [enabled, setEnabled] = useState(false);
@@ -35,11 +36,5 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
   );
 
   const value = { enabled, volume, toggle, setVolume };
-  return <SoundCtx.Provider value={value}>{children}</SoundCtx.Provider>;
-}
-
-export function useSoundContext() {
-  const ctx = useContext(SoundCtx);
-  if (!ctx) throw new Error('Must be inside <SoundProvider>');
-  return ctx;
+  return <SoundContext.Provider value={value}>{children}</SoundContext.Provider>;
 }

@@ -1,6 +1,7 @@
 import { memo, useState } from 'react';
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
-import { useSoundContext } from '../../context/SoundContext';
+
+import { useSoundContext } from '../../hooks/useSoundContext';
 import styles from './SoundControl.module.css';
 
 export const SoundControl = memo(function SoundControl() {

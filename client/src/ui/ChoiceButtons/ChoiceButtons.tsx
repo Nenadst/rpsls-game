@@ -1,10 +1,12 @@
 import { motion } from 'motion/react';
 import { memo } from 'react';
+
 import diceImg from '../../assets/images/two-dices-white-background.png';
 import { ICONS, type ChoiceName } from '../../constants/icons';
 import { capitalizeFirst } from '../../utils/helpers';
-import type { ChoiceButtonsProps } from './ChoiceButton.types';
 import styles from './ChoiceButtons.module.css';
+
+import type { ChoiceButtonsProps } from './ChoiceButton.types';
 
 export const ChoiceButtons = memo(function ChoiceButtons({
   choices,

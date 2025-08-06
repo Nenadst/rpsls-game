@@ -1,7 +1,9 @@
 import { motion } from 'motion/react';
 import { memo } from 'react';
+
 import { ICONS, type ChoiceName } from '../../constants/icons';
 import styles from './ResultBox.module.css';
+
 import type { ResultBoxProps } from './ResultBox.types';
 
 export const ResultBox = memo(function ResultBox({

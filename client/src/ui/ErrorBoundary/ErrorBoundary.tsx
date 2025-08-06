@@ -1,7 +1,8 @@
 import { Component, type PropsWithChildren } from 'react';
+
 import { ErrorPage } from '../ErrorPage/ErrorPage';
 
-type ErrorBoundaryProps = PropsWithChildren<{}>;
+type ErrorBoundaryProps = PropsWithChildren;
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps, { hasError: boolean }> {
   state = { hasError: false };

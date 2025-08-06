@@ -1,6 +1,8 @@
 import { motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
+
 import styles from './ProfileDropdown.module.css';
+
 import type { ProfileDropdownProps } from './ProfileDropdown.types';
 
 export default function ProfileDropdown({ playerName, onLogout }: ProfileDropdownProps) {

@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { useConfetti } from '../../hooks/useConfetti';
 import { useGameLogic } from '../../hooks/useGameLogic';
 import { useSound } from '../../hooks/useSound';

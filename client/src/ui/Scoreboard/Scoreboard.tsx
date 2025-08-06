@@ -1,6 +1,8 @@
 import { motion } from 'motion/react';
 import { memo } from 'react';
+
 import styles from './Scoreboard.module.css';
+
 import type { ScoreboardProps } from './Scoreboard.types';
 
 export const Scoreboard = memo(function Scoreboard({ history }: ScoreboardProps) {

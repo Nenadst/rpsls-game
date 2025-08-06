@@ -1,5 +1,6 @@
 import { useCallback, useRef } from 'react';
-import { useSoundContext } from '../context/SoundContext';
+
+import { useSoundContext } from './useSoundContext';
 
 export function useSound() {
   const { enabled, volume } = useSoundContext();

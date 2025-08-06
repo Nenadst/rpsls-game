@@ -1,6 +1,8 @@
 import { useCallback, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
+
 import { useChoicesQuery, usePlayGameMutation, useRandomChoiceQuery } from '../queries/gameQueries';
+
 import type { GameResult, Score } from '../types/gameTypes';
 
 export function useGameLogic(playSound: (n: string) => void, triggerConfetti: () => void) {
@@ -29,7 +31,7 @@ export function useGameLogic(playSound: (n: string) => void, triggerConfetti: ()
       playSound('tap');
       mutation.mutate(id);
     },
-    [mutation]
+    [mutation, playSound]
   );
 
   const playRandom = useCallback(async () => {
