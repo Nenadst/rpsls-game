@@ -10,7 +10,7 @@
   max-width: 68.75rem;
   width: 100%;
   padding: 2rem;
-  background-color: var(--color-danger-100);
+  background-color: var(--color-neutral-100);
   border-radius: 0.75rem;
   box-shadow: var(--shadow-md);
 }
