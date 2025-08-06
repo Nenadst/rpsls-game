@@ -11,6 +11,7 @@ import CustomDropdown from '../../ui/ProfileDropdown/ProfileDropdown';
 import { ResultBox } from '../../ui/ResultBox/ResultBox';
 import { Scoreboard } from '../../ui/Scoreboard/Scoreboard';
 import { SoundControl } from '../../ui/SoundControl/SoundControl';
+import { Spinner } from '../../ui/Spinner/Spinner';
 import styles from './Game.module.css';
 
 export default function Game() {
@@ -43,7 +44,7 @@ export default function Game() {
     reset,
   } = useGameLogic(playSound, triggerConfetti);
 
-  if (isLoading) return <p>Loading…</p>;
+  if (isLoading) return <Spinner />;
   if (isError) return <p>Failed to load choices.</p>;
 
   return (
