@@ -1,6 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useCallback, useRef, useState } from 'react';
 
+import { GAME_CONSTANTS } from '../constants/gameConstants';
+
 type SoundContextType = {
   enabled: boolean;
   volume: number;
@@ -13,7 +15,7 @@ export const SoundContext = createContext<SoundContextType | null>(null);
 export function SoundProvider({ children }: { children: React.ReactNode }) {
   const [enabled, setEnabled] = useState(false);
   const [volume, _setVolume] = useState(0);
-  const lastNonZero = useRef(0.5);
+  const lastNonZero = useRef(GAME_CONSTANTS.DEFAULT_VOLUME);
 
   const toggle = useCallback(() => {
     if (enabled) {

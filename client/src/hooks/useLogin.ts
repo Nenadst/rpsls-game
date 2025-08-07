@@ -2,7 +2,7 @@ import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const MAX_NAME_LENGTH = 20;
+import { GAME_CONSTANTS, ROUTES } from '../constants/gameConstants';
 
 export function useLogin() {
   const nav = useNavigate();
@@ -11,12 +11,14 @@ export function useLogin() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value;
-    if (raw.length > MAX_NAME_LENGTH) {
+    const sanitized = raw.replace(/[<>"/\\&{}[\]]/g, '');
+
+    if (sanitized.length > GAME_CONSTANTS.MAX_PLAYER_NAME_LENGTH) {
       setLimitHit(true);
-      setName(raw.slice(0, MAX_NAME_LENGTH));
+      setName(sanitized.slice(0, GAME_CONSTANTS.MAX_PLAYER_NAME_LENGTH));
     } else {
       setLimitHit(false);
-      setName(raw);
+      setName(sanitized);
     }
   };
 
@@ -25,8 +27,19 @@ export function useLogin() {
     const trimmed = name.trim();
     if (!trimmed) return toast.error('Enter a name to play');
 
-    localStorage.setItem('playerName', trimmed);
-    nav('/game', { replace: true });
+    if (trimmed.length < GAME_CONSTANTS.MIN_PLAYER_NAME_LENGTH) {
+      return toast.error(
+        `Name must be at least ${GAME_CONSTANTS.MIN_PLAYER_NAME_LENGTH} characters`
+      );
+    }
+
+    const finalName = trimmed.replace(/[<>"/\\&{}[\]]/g, '');
+    if (finalName !== trimmed) {
+      return toast.error('Name contains invalid characters');
+    }
+
+    localStorage.setItem('playerName', finalName);
+    nav(ROUTES.GAME, { replace: true });
   };
 
   return {

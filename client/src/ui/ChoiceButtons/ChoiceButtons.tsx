@@ -23,6 +23,15 @@ export const ChoiceButtons = memo(function ChoiceButtons({
           className={styles.choiceButton}
           onClick={() => play(c.id)}
           disabled={disabled}
+          aria-label={`Choose ${c.name}`}
+          role="button"
+          tabIndex={disabled ? -1 : 0}
+          onKeyDown={(e) => {
+            if ((e.key === 'Enter' || e.key === ' ') && !disabled) {
+              e.preventDefault();
+              play(c.id);
+            }
+          }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95, rotate: [0, -5, 5, -3, 0] }}
         >
@@ -35,6 +44,15 @@ export const ChoiceButtons = memo(function ChoiceButtons({
         className={`${styles.choiceButton} ${styles.randomChoiceButton}`}
         onClick={playRandom}
         disabled={disabled || isFetchingRandom}
+        aria-label={isFetchingRandom ? 'Picking random choice' : 'Choose random option'}
+        role="button"
+        tabIndex={disabled || isFetchingRandom ? -1 : 0}
+        onKeyDown={(e) => {
+          if ((e.key === 'Enter' || e.key === ' ') && !disabled && !isFetchingRandom) {
+            e.preventDefault();
+            playRandom();
+          }
+        }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95, rotate: [0, 5, -5, 3, 0] }}
       >
