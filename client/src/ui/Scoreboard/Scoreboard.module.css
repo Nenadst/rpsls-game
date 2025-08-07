@@ -1,6 +1,6 @@
 .scoreboard {
   width: 25rem;
-  min-height: 22.5rem;
+  min-height: 20rem;
   background: linear-gradient(to bottom right, var(--color-primary-50), var(--color-primary-100));
   border-radius: 0.75rem;
   padding: 1rem;
@@ -40,6 +40,97 @@
   background-color: var(--color-surface-alt);
 }
 
+.matchDetails {
+  margin-bottom: 0.5rem;
+}
+
+.compactStats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-white);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-xs);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.compactItem {
+  color: var(--color-neutral-600);
+  white-space: nowrap;
+}
+
+.compactStats:hover {
+  background: var(--color-neutral-50);
+  border-color: var(--color-primary-300);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.expandButton {
+  color: var(--color-primary-600);
+  font-size: 0.75rem;
+}
+
+.detailsContent {
+  background: var(--color-white);
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  border: 1px solid var(--color-neutral-200);
+  box-shadow: var(--shadow-xs);
+}
+
+.collapseButton {
+  width: 100%;
+  background: var(--color-neutral-50);
+  border: 1px solid var(--color-neutral-200);
+  color: var(--color-neutral-600);
+  font-size: 0.6875rem;
+  padding: 0.25rem;
+  border-radius: 0.1875rem;
+  cursor: pointer;
+  margin-bottom: 0.375rem;
+  transition: background-color 0.2s ease;
+}
+
+.collapseButton:hover {
+  background: var(--color-neutral-100);
+}
+
+.statsRow {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--color-neutral-600);
+  text-align: center;
+  margin-bottom: 0.375rem;
+}
+
+.totalMatches {
+  font-size: 0.6875rem;
+  color: var(--color-primary-600);
+  font-weight: 600;
+  text-align: center;
+  padding: 0.25rem 0.375rem;
+  background: var(--color-primary-50);
+  border-radius: 0.1875rem;
+  border: 1px solid var(--color-primary-200);
+}
+
+.section {
+  margin-bottom: 0.5rem;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+}
+
 .emptyText {
   font-size: 1.125rem;
   font-weight: 600;
@@ -48,25 +139,128 @@
   margin-top: 5rem;
 }
 
+@media (max-width: 1600px) {
+  .scoreboard {
+    min-height: 18rem;
+  }
+
+  .scoreboard li {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.4375rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .scoreboard {
+    min-height: 16rem;
+  }
+
+  .scoreboard li {
+    font-size: 0.8125rem;
+    padding: 0.4375rem 0.625rem;
+    margin-bottom: 0.375rem;
+  }
+
+  .compactStats {
+    padding: 0.1875rem 0.375rem;
+    font-size: 0.6875rem;
+  }
+
+  .expandButton {
+    font-size: 0.6875rem;
+  }
+}
+
 @media (max-width: 1024px) {
   .scoreboard {
     width: 100%;
-    min-height: 11.25rem;
+    min-height: 14rem;
+    padding: 0.75rem;
+  }
+
+  .scoreboard li {
+    font-size: 0.75rem;
+    padding: 0.375rem 0.5rem;
+    margin-bottom: 0.3125rem;
   }
 
   .emptyText {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
+  }
+
+  .matchDetails {
+    margin-bottom: 0.375rem;
+  }
+
+  .compactStats {
+    padding: 0.125rem 0.25rem;
+    font-size: 0.75rem;
+  }
+
+  .expandButton {
+    font-size: 0.75rem;
+    padding: 0.0625rem 0.125rem;
+  }
+
+  .statsRow {
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .totalMatches {
+    font-size: 0.75rem;
+    padding: 0.1875rem 0.25rem;
+  }
+
+  .collapseButton {
+    font-size: 0.75rem;
+    padding: 0.1875rem;
+    margin-bottom: 0.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .scoreboard {
+    padding: 0.5rem;
+    min-height: 12rem;
+  }
+
+  .scoreboard li {
+    font-size: 0.6875rem;
+    padding: 0.3125rem 0.4375rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .compactStats {
+    font-size: 0.6875rem;
+    padding: 0.1875rem;
+  }
+
+  .expandButton {
+    font-size: 0.6875rem;
   }
 }
 
 @media (max-width: 480px) {
   .scoreboard {
-    padding: 0.75rem;
-    margin-top: 1.5rem;
+    padding: 0.375rem;
+    margin-top: 0.75rem;
+    min-height: 10rem;
   }
 
   .scoreboard li {
-    font-size: 0.875rem;
-    padding: 0.5rem 0.625rem;
+    font-size: 0.625rem;
+    padding: 0.25rem 0.375rem;
+    margin-bottom: 0.1875rem;
+  }
+
+  .compactStats {
+    font-size: 0.625rem;
+    padding: 0.125rem 0.1875rem;
+  }
+
+  .expandButton {
+    font-size: 0.625rem;
   }
 }

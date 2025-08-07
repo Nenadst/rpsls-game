@@ -37,12 +37,14 @@ export default function Game() {
     result,
     history,
     score,
+    matchResult,
+    savedMatches,
     isLoading,
     isError,
     isFetchingRandom,
     play,
     playRandom,
-    reset,
+    resetMatch,
   } = useGameLogic(playSound, triggerConfetti);
 
   if (isLoading) return <Spinner />;
@@ -72,20 +74,30 @@ export default function Game() {
 
         <section className={styles.mainWrapper}>
           <div className={styles.mainContent}>
-            <p className={styles.selectMoveText}>Select your move:</p>
+            <p className={styles.selectMoveText}>
+              {matchResult ? 'Match Over!' : 'Select your move:'}
+            </p>
 
             <ChoiceButtons
               choices={choices}
-              disabled={false}
+              disabled={!!matchResult}
               play={play}
               playRandom={playRandom}
               isFetchingRandom={isFetchingRandom}
             />
 
-            <ResultBox result={result} score={score} history={history} onReset={reset} />
+            <ResultBox
+              result={result}
+              score={score}
+              matchResult={matchResult}
+              history={history}
+              playerName={playerName}
+              onReset={resetMatch}
+              onResetMatch={resetMatch}
+            />
           </div>
 
-          <Scoreboard history={history} />
+          <Scoreboard history={history} score={score} savedMatches={savedMatches} />
         </section>
       </motion.div>
 

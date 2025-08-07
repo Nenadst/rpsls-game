@@ -1,6 +1,5 @@
 .box {
   text-align: center;
-  margin-top: 3rem;
 }
 
 .vsBox {
@@ -36,12 +35,156 @@
   color: var(--color-neutral-300);
 }
 
-.scoreRow {
-  margin-top: 1.25rem;
+.gameInterface {
+  margin: 0.75rem 0;
+}
+
+.progressSection {
+  display: flex;
+  align-items: stretch;
+  gap: 1.25rem;
+  min-height: 110px;
+}
+
+.playerSection,
+.computerSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.playerHeader,
+.computerHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.playerName,
+.computerName {
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.playerName {
+  color: var(--color-success-600);
+}
+
+.computerName {
+  color: var(--color-danger-600);
+}
+
+.scoreCounter {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-neutral-700);
+}
+
+.verticalProgressBar {
+  width: 32px;
+  height: 100px;
+  background: var(--color-neutral-200);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.playerProgressFill,
+.computerProgressFill {
+  width: 100%;
+  border-radius: 0 0 16px 16px;
+  transition: height 0.5s ease;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.playerProgressFill {
+  background: linear-gradient(to top, var(--color-success-500), var(--color-success-400));
+}
+
+.computerProgressFill {
+  background: linear-gradient(to top, var(--color-danger-500), var(--color-danger-400));
+}
+
+.progressMarkers {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.marker {
+  flex: 1;
+  border-top: 1px solid var(--color-neutral-300);
+  opacity: 0.6;
+}
+
+.marker:last-child {
+  border-top: none;
+}
+
+.centerStats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 2;
   text-align: center;
-  font-size: 1rem;
+  padding: 0 0.75rem;
+}
+
+.matchTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-neutral-700);
+  margin-bottom: 0.75rem;
+}
+
+.currentScore {
+  margin-bottom: 0.75rem;
+}
+
+.scoreStats {
+  font-size: 1.375rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  margin-bottom: 0.375rem;
+  color: var(--color-neutral-700);
+}
+
+.separator {
+  color: var(--color-neutral-400);
+  font-size: 1.25rem;
+}
+
+.gameStats {
+  margin: 0.75rem 0;
+  padding: 0.75rem 1rem;
+  background: var(--color-neutral-50);
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-neutral-200);
+  min-width: 280px;
+}
+
+.statsRow {
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-neutral-600);
+  text-align: center;
 }
 
 .reset {
@@ -66,7 +209,7 @@
 }
 
 .outcome {
-  margin-top: 1rem;
+  margin: 0;
   font-size: 1.75rem;
   font-weight: 700;
 }
@@ -91,14 +234,38 @@
 
 @media (max-width: 1200px) {
   .box {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .progressSection {
+    min-height: 100px;
+    gap: 1rem;
+  }
+
+  .verticalProgressBar {
+    width: 30px;
+    height: 90px;
+  }
+
+  .gameInterface {
+    margin: 0.5rem 0;
   }
 }
 
 @media (max-width: 1024px) {
   .icon {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+
+  .progressSection {
+    min-height: 90px;
+    gap: 0.75rem;
+  }
+
+  .verticalProgressBar {
+    width: 28px;
+    height: 80px;
   }
 }
 
@@ -108,8 +275,113 @@
   }
 }
 
+.matchResult {
+  background: linear-gradient(135deg, var(--color-success-50) 0%, var(--color-primary-50) 100%);
+  border: 2px solid var(--color-success-200);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.matchResult .matchTitle {
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+}
+
+.matchWon {
+  color: var(--color-success-600);
+}
+
+.matchLost {
+  color: var(--color-danger-500);
+}
+
+.matchInfo {
+  color: var(--color-neutral-700);
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+.totalMatches {
+  font-size: 0.875rem;
+  color: var(--color-primary-600);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .progressSection {
+    gap: 0.75rem;
+    min-height: 85px;
+  }
+
+  .verticalProgressBar {
+    width: 26px;
+    height: 75px;
+  }
+
+  .centerStats {
+    padding: 0 0.375rem;
+  }
+
+  .scoreStats {
+    font-size: 1.125rem;
+  }
+}
+
 @media (max-width: 480px) {
   .vsBox {
     display: none;
+  }
+
+  .matchResult {
+    padding: 0.75rem;
+    margin: 0.75rem 0;
+  }
+
+  .matchTitle {
+    font-size: 1.125rem;
+  }
+
+  .progressSection {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    min-height: auto;
+  }
+
+  .playerSection,
+  .computerSection {
+    flex-direction: row;
+    gap: 0.75rem;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-end;
+    min-height: 60px;
+  }
+
+  .verticalProgressBar {
+    width: 25px;
+    height: 80px;
+  }
+
+  .playerHeader,
+  .computerHeader {
+    margin-bottom: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 50px;
+    width: 80px;
+  }
+
+  .centerStats {
+    order: -1;
+    padding: 0;
+    margin-bottom: 0.75rem;
   }
 }

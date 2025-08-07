@@ -19,3 +19,13 @@ export interface Score {
   lose: number;
   tie: number;
 }
+
+export interface MatchScore {
+  playerMatches: number;
+  computerMatches: number;
+}
+
+export interface MatchResult {
+  winner: 'player' | 'computer';
+  finalScore: Score;
+}
