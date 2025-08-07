@@ -3,13 +3,22 @@ import { toast } from 'react-toastify';
 
 import { useChoicesQuery, usePlayGameMutation, useRandomChoiceQuery } from '../queries/gameQueries';
 
-import type { GameResult, Score } from '../types/gameTypes';
+import type { GameResult, MatchResult, MatchScore, Score } from '../types/gameTypes';
 
 export function useGameLogic(playSound: (n: string) => void, triggerConfetti: () => void) {
   const [result, setResult] = useState<GameResult | null>(null);
   const [history, setHistory] = useState<GameResult[]>([]);
   const [score, setScore] = useState<Score>({ win: 0, lose: 0, tie: 0 });
+  const [matchScore, setMatchScore] = useState<MatchScore>({
+    playerMatches: 0,
+    computerMatches: 0,
+  });
+  const [matchResult, setMatchResult] = useState<MatchResult | null>(null);
   const lastClickRef = useRef(0);
+  const matchEndProcessedRef = useRef(false);
+
+  const playerName = localStorage.getItem('playerName') || 'Player';
+  const savedMatches = parseInt(localStorage.getItem(`matches_${playerName}`) || '0');
 
   const { data: choices = [], isLoading, isError } = useChoicesQuery();
   const { refetch: refetchRandom, isFetching: isFetchingRandom } = useRandomChoiceQuery();
@@ -19,6 +28,9 @@ export function useGameLogic(playSound: (n: string) => void, triggerConfetti: ()
     setResult,
     setHistory,
     setScore,
+    setMatchScore,
+    setMatchResult,
+    matchEndProcessedRef,
     playSound,
     triggerConfetti,
   });
@@ -44,10 +56,12 @@ export function useGameLogic(playSound: (n: string) => void, triggerConfetti: ()
     }
   }, [play, refetchRandom]);
 
-  const reset = useCallback(() => {
+  const resetMatch = useCallback(() => {
     setResult(null);
     setHistory([]);
     setScore({ win: 0, lose: 0, tie: 0 });
+    setMatchResult(null);
+    matchEndProcessedRef.current = false;
   }, []);
 
   return {
@@ -55,11 +69,14 @@ export function useGameLogic(playSound: (n: string) => void, triggerConfetti: ()
     result,
     history,
     score,
+    matchScore,
+    matchResult,
+    savedMatches,
     isLoading,
     isError,
     isFetchingRandom,
     play,
     playRandom,
-    reset,
+    resetMatch,
   };
 }
