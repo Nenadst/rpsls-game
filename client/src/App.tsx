@@ -2,10 +2,14 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import './App.css';
-import { SoundProvider } from './context/SoundContext';
 import Game from './pages/GamePage/Game';
 import Login from './pages/LoginPage/Login';
 import ProtectedRoute from './routes/ProtectedRoute';
+
+function RootRedirect() {
+  const hasPlayerName = localStorage.getItem('playerName');
+  return <Navigate to={hasPlayerName ? '/game' : '/login'} replace />;
+}
 
 export default function App() {
   return (
@@ -17,15 +21,13 @@ export default function App() {
           path="/game"
           element={
             <ProtectedRoute>
-              <SoundProvider>
-                <Game />
-              </SoundProvider>
+              <Game />
             </ProtectedRoute>
           }
         />
 
-        <Route path="/" element={<Navigate to="/game" replace />} />
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="/" element={<RootRedirect />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 
       <ToastContainer

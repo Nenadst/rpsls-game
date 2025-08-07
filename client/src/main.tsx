@@ -3,6 +3,7 @@ import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 
 import App from './App.js';
+import { SoundProvider } from './context/SoundContext.js';
 import './index.css';
 import { ErrorBoundary } from './ui/ErrorBoundary/ErrorBoundary.js';
 
@@ -12,7 +13,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <ErrorBoundary>
-        <App />
+        <SoundProvider>
+          <App />
+        </SoundProvider>
       </ErrorBoundary>
     </QueryClientProvider>
   </StrictMode>
