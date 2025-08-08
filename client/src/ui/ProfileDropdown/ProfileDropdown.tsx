@@ -1,11 +1,14 @@
 import { motion } from 'motion/react';
-import { useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 import styles from './ProfileDropdown.module.css';
 
 import type { ProfileDropdownProps } from './ProfileDropdown.types';
 
-export default function ProfileDropdown({ playerName, onLogout }: ProfileDropdownProps) {
+const ProfileDropdown = memo(function ProfileDropdown({
+  playerName,
+  onLogout,
+}: ProfileDropdownProps) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -27,11 +30,11 @@ export default function ProfileDropdown({ playerName, onLogout }: ProfileDropdow
     };
   }, [open]);
 
-  const toggle = () => setOpen((val) => !val);
-  const logout = () => {
+  const toggle = useCallback(() => setOpen((val) => !val), []);
+  const logout = useCallback(() => {
     onLogout();
     setOpen(false);
-  };
+  }, [onLogout]);
 
   return (
     <div ref={ref} className={styles.profile}>
@@ -63,4 +66,6 @@ export default function ProfileDropdown({ playerName, onLogout }: ProfileDropdow
       )}
     </div>
   );
-}
+});
+
+export default ProfileDropdown;

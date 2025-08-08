@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useConfetti } from '../../hooks/useConfetti';
@@ -19,18 +19,18 @@ export default function Game() {
   const [showInstructions, setShowInstructions] = useState(false);
   const navigate = useNavigate();
 
-  const playerName = localStorage.getItem('playerName') || 'Player';
+  const playerName = useMemo(() => localStorage.getItem('playerName') || 'Player', []);
 
-  const openModal = () => setShowInstructions(true);
-  const closeModal = () => setShowInstructions(false);
+  const openModal = useCallback(() => setShowInstructions(true), []);
+  const closeModal = useCallback(() => setShowInstructions(false), []);
 
   const playSound = useSound();
   const triggerConfetti = useConfetti();
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     localStorage.removeItem('playerName');
     navigate('/login', { replace: true });
-  };
+  }, [navigate]);
 
   const {
     choices,
