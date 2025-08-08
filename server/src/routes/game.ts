@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { BEATS, ChoiceId, CHOICES } from '../data/choicesData.ts';
 
+const RANDOM_API_URL = process.env.RANDOM_API_URL || 'https://codechallenge.boohma.com/random';
+
 function determineWinner(playerId: ChoiceId, computerId: ChoiceId): 'win' | 'lose' | 'tie' {
   if (playerId === computerId) return 'tie';
   return BEATS[playerId].includes(computerId) ? 'win' : 'lose';
@@ -17,7 +19,23 @@ router.post('/play', async (req: Request<{}, {}, PlayRequestBody>, res: Response
   try {
     const { player } = req.body;
 
-    const response = await fetch('https://codechallenge.boohma.com/random');
+    if (!player || typeof player !== 'number' || player < 1 || player > CHOICES.length) {
+      return res.status(400).json({ 
+        error: 'Invalid player choice',
+        message: `Player choice must be a number between 1 and ${CHOICES.length}` 
+      });
+    }
+
+    const response = await fetch(RANDOM_API_URL);
+    
+    if (!response.ok) {
+      console.error(`Random API error: ${response.status} ${response.statusText}`);
+      return res.status(503).json({ 
+        error: 'Random number service unavailable',
+        message: 'Unable to generate computer choice at this time'
+      });
+    }
+
     const { random_number }: { random_number: number } = await response.json();
 
     if (typeof random_number !== 'number') {
