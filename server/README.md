@@ -30,6 +30,19 @@
 - `npm run build` - Compile TypeScript to JavaScript
 - `npm start` - Start production server (requires build first)
 
+## Docker
+
+### Build and Run Container
+
+docker build -t rpsls-server .
+docker run -p 5000:5000 rpsls-server
+
+### Using Docker Compose
+
+From the root directory:
+
+docker-compose up --build
+
 ## API Endpoints
 
 ### Base URL: `http://localhost:5000/api`

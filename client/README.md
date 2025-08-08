@@ -30,3 +30,16 @@
 
 5. Open your browser
    Navigate to `http://localhost:3000`
+
+## Docker
+
+### Build and Run Container
+
+docker build -t rpsls-client .
+docker run -p 80:80 rpsls-client
+
+### Using Docker Compose
+
+From the root directory:
+
+docker-compose up --build
